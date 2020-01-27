@@ -80,12 +80,12 @@ void startWiFi() { // Start a Wi-Fi access point, and try to connect to some giv
   Serial.print(ssid);
   Serial.println("\" started\r\n");
 
-  wifiMulti.addAP("ssid_from_AP_1", "your_password_for_AP_1");   // add Wi-Fi networks you want to connect to
+  wifiMulti.addAP("xxxxxx", "xxxxxxxxxxxx");   // add Wi-Fi networks you want to connect to
   wifiMulti.addAP("ssid_from_AP_2", "your_password_for_AP_2");
   wifiMulti.addAP("ssid_from_AP_3", "your_password_for_AP_3");
 
   Serial.println("Connecting");
-  while (wifiMulti.run() != WL_CONNECTED && WiFi.softAPgetStationNum() < 1) {  // Wait for the Wi-Fi to connect
+  while (wifiMulti.run() != WL_CONNECTED && WiFi.softAPgetStationNum() < 1) {  // Wait for the Wi-Fi to connect to station or a station connects to AP
     delay(250);
     Serial.print('.');
   }
@@ -94,7 +94,9 @@ void startWiFi() { // Start a Wi-Fi access point, and try to connect to some giv
     Serial.print("Connected to ");
     Serial.println(WiFi.SSID());             // Tell us what network we're connected to
     Serial.print("IP address:\t");
-    Serial.print(WiFi.localIP());            // Send the IP address of the ESP8266 to the computer
+    Serial.println(WiFi.localIP());            // Send the IP address of the ESP8266 to the computer
+    WiFi.softAPdisconnect(false);             // Switch off soft AP mode
+    Serial.print("So switching soft AP off");
   } else {                                   // If a station is connected to the ESP SoftAP
     Serial.print("Station connected to ESP8266 AP");
   }
